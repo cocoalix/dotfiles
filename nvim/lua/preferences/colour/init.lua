@@ -19,12 +19,24 @@ local background_transparent   = { bg = "None" }
 
 local M = {}
 
-local function get_on_terminal()
+---
+--- ターミナル用の自分の好きな色の組み合わせを取得する
+--- @return table
+---
+local function get_flavour_colour_for_terminal()
   return {
     _c.get_hl_table("Normal", background_transparent)
   , _c.get_hl_table("NonText", background_transparent)
---
-  , _c.get_hl_table("LineNr", background_transparent)
+  }
+end
+
+---
+--- 共通の自分の好きな色の組み合わせを取得する
+--- @return table
+---
+local function get_common_flavour_colour_override()
+  return {
+    _c.get_hl_table("LineNr", background_transparent)
   , _c.get_hl_table("CursorLineNr", theme.sub.g)
   , _c.get_hl_table("WinBar", background_transparent)
   , _c.get_hl_table("WinBarNC", background_transparent)
@@ -53,8 +65,15 @@ M.get_my_colorscheme = function()
   table.insert(my_colorscheme, _c.get_hl_table("CursorLineNr", theme.sub.g))
 
   -- TransparentBG
+  -- get my flavour colour for generally(commonly)
+  -- 自分専用の好きな色の組み合わせを取得して上書きする
+  local flavour_colour = get_common_flavour_colour_override()
+  my_colorscheme = vim.tbl_deep_extend("force", my_colorscheme, flavour_colour)
+
   if not _env.is_neovide() then
-    local on_terminal = get_on_terminal()
+    -- get additional flavour colour for using on terminal
+    -- ターミナルの場合はさらに追加の組み合わせを取得して上書きする
+    local on_terminal = get_flavour_colour_for_terminal()
     my_colorscheme = vim.tbl_deep_extend("force", my_colorscheme, on_terminal)
   end
 
