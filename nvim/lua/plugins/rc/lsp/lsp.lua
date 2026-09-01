@@ -354,7 +354,7 @@ return {
     event = { "LspAttach" },
     keys = {
       {
-        "<M-.>",
+        "<leader><space>",
         "<Cmd>lua require('actions-preview').code_actions()<CR>",
         {
           buffer = bufnr,
