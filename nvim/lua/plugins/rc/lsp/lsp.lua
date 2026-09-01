@@ -197,7 +197,13 @@ return {
         ["docker_compose_language_service"] = {},
         ["dockerls"] = {},
         ["html"] = {},
-        ["intelephense"] = {},
+        ["intelephense"] = {
+          filetypes = { "php" },
+          root_markers = { "artisan", "composer.json" },
+          init_options = {
+            licenceKey = vim.fn.expand('~/.config/nvim/license.intelephense.txt'),
+          },
+        },
         ["laravel_ls"] = {
           cmd = { "laravel-ls" },
           filetypes = { "php", "blade" },

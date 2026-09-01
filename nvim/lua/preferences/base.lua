@@ -161,10 +161,21 @@ local function config_io()
   --  disable use tabcharacter and define tabstop
   opt.tabstop = 4
   opt.smartindent = true
+  opt.autoindent = true
   opt.softtabstop = -1  -- reference shiftwidth
   opt.shiftwidth = 0    -- reference tabstop
   opt.expandtab = true
   opt.backspace = "indent,eol,start"
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "php",
+    callback = function()
+      vim.opt_local.autoindent = true
+      -- PHPではcindentよりindentexprを優先する
+      vim.opt_local.cindent = false
+      vim.opt_local.indentexpr = "GetPhpIndent()" -- 標準スクリプトを使用
+    end,
+  })
 
   --  日本語入力に関する設定:
   if fn.has("multi_byte_ime") or fn.has("xim") then
