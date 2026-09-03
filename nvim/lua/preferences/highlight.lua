@@ -53,7 +53,9 @@ M.setup = function()
       "md",
     },
     callback = function()
-      vim.g.markdown_fenced_languages = md_fenced_language_list
+      -- hover documentsの軽量化のために一旦空指定に変更
+      --vim.g.markdown_fenced_languages = md_fenced_language_list
+      vim.g.markdown_fenced_languages = {}
     end
   })
 end

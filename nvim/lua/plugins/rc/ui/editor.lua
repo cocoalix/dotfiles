@@ -74,7 +74,16 @@ return {
     "norcalli/nvim-colorizer.lua",
     event = { "BufReadPost", "FileReadPost" },
     config = function()
-      require("colorizer").setup()
+      require("colorizer").setup({
+        -- css
+        "css", "scss", "sass", "less",
+        -- web frontend frameworks
+        "html", "typescriptreact", "javascriptreact", "vue", "svelte",
+        -- web frontend scripts
+        "javascript", "typescript",
+        -- vim/neovim preferences
+        "lua", "vim", "conf", "toml",
+      })
     end,
   },
   {
